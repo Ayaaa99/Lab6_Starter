@@ -8,7 +8,7 @@ function init() {
   // Get the recipes from localStorage
   let recipes = getRecipesFromStorage();
   // Add each recipe to the <main> element
-  addRecipesToDocument(recipes);
+  setTimeout(addRecipesToDocument(recipes),10000);
   // Add the event listeners to the form elements
   initFormHandler();
 }
@@ -46,13 +46,9 @@ function addRecipesToDocument(recipes) {
   //            each <recipe-card> with that recipe data using element.data = ...
   //            Append each element to <main>
   for (const recipe of recipes) {
-    let cardEl = document.createElement("recipe-card");
-    let recipeData = Object.values(recipe);
-    cardEl.data = recipeData;
-    console.log(recipeData);
-    console.log(typeof recipeData);
-    console.log(cardEl.shadow);
-    mainEl.appendChild(cardEl);
+    const recipeCard = document.createElement("recipe-card");
+    recipeCard.data = recipe;
+    mainEl.appendChild(recipeCard);
   }
 }
 

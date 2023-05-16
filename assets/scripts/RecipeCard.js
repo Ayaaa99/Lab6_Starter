@@ -8,13 +8,14 @@ class RecipeCard extends HTMLElement {
 
     // EXPOSE - START (All expose numbers start with A)
     // A1. TODO - Attach the shadow DOM to this Web Component (leave the mode open)
-    const shadow = this.attachShadow({model:'open'});
+    const shadow = this.attachShadow({mode:"open"});
     // A2. TODO - Create an <article> element - This will hold our markup once our data is set
-    let article = document.createElement("article");
+    const article = document.createElement("article");
     // A3. TODO - Create a style element - This will hold all of the styles for the Web Component
-    let style = document.createElement("style");
+    const style = document.createElement("style");
     // A4. TODO - Insert all of the styles from cardTemplate.html into the <style> element you just made
-    style = `
+
+    style.innerHTML = `
     * {
       font-family: sans-serif;
       margin: 0;
@@ -92,8 +93,8 @@ class RecipeCard extends HTMLElement {
     }
   `;
     // A5. TODO - Append the <style> and <article> elements to the Shadow DOM
-    shadow.append(style);
     shadow.append(article);
+    shadow.append(style);
   }
 
   /**
@@ -122,26 +123,26 @@ class RecipeCard extends HTMLElement {
     if (!data) return;
 
     // A6. TODO - Select the <article> we added to the Shadow DOM in the constructor
-    let article = this.querySelector('article');
+    let article = this.shadowRoot.querySelector('article');
     // A7. TODO - Set the contents of the <article> with the <article> template given in
     //           cardTemplate.html and the data passed in (You should only have one <article>,
     //           do not nest an <article> inside another <article>). You should use Template
     //           literals (tempalte strings) and element.innerHTML for this.
     article.innerHTML = `
-    <img src="${data[0]}"
-    alt="${data[1]}">
+    <img src="${data["imgSrc"]}"
+    alt="${data["imgAlt"]}">
     <p class="title">
-      <a href="${data[2]}">${data[3]}</a>
+      <a href="${data["titleLnk"]}">${data["titleTxt"]}</a>
     </p>
-    <p class="organization">${data[4]}</p>
+    <p class="organization">${data["organization"]}</p>
     <div class="rating">
-      <span>${data[5]}</span>
+      <span>${data["rating"]}</span>
       <img src="/assets/images/icons/5-star.svg" alt="5 stars">
-      <span>(${data[6]})</span>
+      <span>(${data["numRatings"]})</span>
     </div>
-    <time>${data[7]}</time>
+    <time>${data["lengthTime"]}</time>
     <p class="ingredients">
-      ${data[8]}
+      ${data["ingredients"]}
     </p>
     `;
   }
@@ -149,4 +150,4 @@ class RecipeCard extends HTMLElement {
 
 // A8. TODO - Define the Class as a customElement so that you can create
 //           'recipe-card' elements
-customElements.define('receipt-card', RecipeCard);
+customElements.define('recipe-card', RecipeCard);
